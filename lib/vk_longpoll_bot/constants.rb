@@ -1,4 +1,4 @@
-module VkChatBot
+module VkLongpollBot
 
   # Base of URL to API.
   VK_API_URL_BASE = "https://api.vk.com"

@@ -1,4 +1,4 @@
-module VkChatBot
+module VkLongpollBot
 
   # Module with some utility methods.
   module Utility

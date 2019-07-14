@@ -1,4 +1,4 @@
-module VkChatBot
+module VkLongpollBot
 
   # Everything related to longpoll events.
   module Events

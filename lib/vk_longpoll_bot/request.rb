@@ -1,7 +1,7 @@
 require "net/http"
 require "json"
 
-module VkChatBot
+module VkLongpollBot
 
   # Some functions to send HTTP requests
   module Request

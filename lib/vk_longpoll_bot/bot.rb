@@ -1,4 +1,4 @@
-module VkChatBot
+module VkLongpollBot
 
   # Main class, which contains all the methods of bot.
   class Bot

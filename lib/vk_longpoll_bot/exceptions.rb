@@ -1,4 +1,4 @@
-module VkChatBot
+module VkLongpollBot
 
   # Custom exceptions.
   module Exceptions

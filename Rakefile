@@ -1,4 +1,4 @@
-GEM_NAME = "vk_chat_bot"
+GEM_NAME = "vk_longpoll_bot"
 
 desc "Build gem file"
 task :build do

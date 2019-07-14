@@ -1,6 +1,0 @@
-require_relative "vk_chat_bot/utility.rb"
-require_relative "vk_chat_bot/constants.rb"
-require_relative "vk_chat_bot/exceptions.rb"
-require_relative "vk_chat_bot/request.rb"
-require_relative "vk_chat_bot/bot.rb"
-require_relative "vk_chat_bot/events.rb"
