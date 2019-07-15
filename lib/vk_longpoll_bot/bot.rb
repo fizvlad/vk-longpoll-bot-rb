@@ -4,7 +4,7 @@ module VkLongpollBot
   class Bot
   
     # Every bot stores id of group it operates.
-    attr_reader :id
+    attr_reader :id, :event_listeners
   
     # Initialize bot. This method don't run longpoll.
     #
@@ -12,7 +12,7 @@ module VkLongpollBot
     # * <tt>:api_version</tt> - version of api to use
     # * <tt>:longpoll_wait</tt> - longpoll requests timeout
     def initialize(access_token, id, options = {})
-      @event_listeners = Hash.new([])
+      @event_listeners = Hash.new { |hash, key| hash[key] = Array.new }
       @on_start = []
       @on_finish = []
     
@@ -36,13 +36,7 @@ module VkLongpollBot
     
     # Send message to <tt>target</tt> with provided <tt>content</tt>.
     def send_message(target, content)
-      case target
-        when User
-          target_id = target.id
-      else
-        target_id = target.to_i
-      end
-      
+      target_id = target.to_i
       api("messages.send", user_id: target_id, message: content, random_id: Utility.random_id(target_id))
     end
     
@@ -55,8 +49,8 @@ module VkLongpollBot
     # <tt>attributes</tt> hash can contain following keys:
     # * <tt>:subtype</tt> - event subtype. All of event types and subtypes are stated in Events::TYPES
     def on(attributes, &block)
-      raise ArgumentErrror unless Events::TYPES.value?(attributes[:subtype])
-      @event_listeners[attributes[:subtype]] << EventListener.new(attributes, &block)
+      raise ArgumentError.new("Got subtype #{attributes[:subtype]} of class #{attributes[:subtype].class}") unless String === attributes[:subtype] && Events.valid_subtype?(attributes[:subtype])
+      @event_listeners[attributes[:subtype]] << Events::EventListener.new(attributes, &block)
     end
     
     # Add code to be executed right after bot starts.
@@ -128,8 +122,11 @@ module VkLongpollBot
     
     # Handle update from longpoll.
     def update_handler(update)
-      event = Event.new(update["type"], update["object"], update["group_id"])
-      # TODO
+      event = Events::Event.new(update["type"], update["object"], update["group_id"], self)
+      @event_listeners[event.subtype].each do |listener|
+        # NOTE: If we had any attributes, we would check whether matching here.
+        listener.call(event)
+      end
     end
     
   end
