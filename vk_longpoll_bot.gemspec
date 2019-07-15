@@ -8,8 +8,7 @@ Gem::Specification.new do |s|
   s.homepage       = "https://github.com/fizvlad/vk-longpoll-bot-rb"
   s.platform       = Gem::Platform::RUBY
   s.required_ruby_version = ">=2.3.1"
-  s.files          = Dir[ "lib/**/**", "test/**/**", "LICENSE", "Rakefile", "README.md", "vk_longpoll_bot.gemspec" ]
-  s.test_files     = Dir[ "test/test*.rb" ]
+  s.files          = Dir[ "lib/**/**", "example/**/**", "LICENSE", "Rakefile", "README.md", "vk_longpoll_bot.gemspec" ]
   s.license        = "MIT"
 
   s.add_runtime_dependency "rake",      "~>12.3"
