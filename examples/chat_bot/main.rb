@@ -10,14 +10,12 @@ bot.on(subtype: "message_typing_state") do |event|
   puts "#{event[:from_id]} is typing message"
 end
 
-# Event listeners are called in the same order
-
 bot.on(subtype: "message_new") do |event|
   puts "Got message from #{event[:user_id]}: #{event[:body]}"
   bot.send_message(event[:user_id], "I got your message")
   
   if event[:attachments]
-    puts "And it got attachments!" event[:attachments]
+    puts "And it got attachments! #{event[:attachments]}"
   end
   
   if event[:body].chomp == "stop"
