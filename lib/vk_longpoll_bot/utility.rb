@@ -14,7 +14,7 @@ module VkLongpollBot
 
     # Generate <tt>random_id</tt> for message.
     def self.random_id(target_id)
-      (rand(100) * target_id) % 2**32
+      (rand(1000) * target_id * Time.now.to_f * 1000).to_i % 2**32
     end
     
   end
