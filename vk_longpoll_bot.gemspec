@@ -2,7 +2,7 @@ Gem::Specification.new do |s|
   s.name           = "vk_longpoll_bot"
   s.summary        = "Provides interface to create simple VK longpoll bot"
   s.description    = "Library to work with VK API and create simple longpoll bot for group."
-  s.version        = "0.0.1"
+  s.version        = "0.0.2"
   s.author         = "Kuznetsov Vladislav"
   s.email          = "fizvlad@mail.ru"
   s.homepage       = "https://github.com/fizvlad/vk-longpoll-bot-rb"
