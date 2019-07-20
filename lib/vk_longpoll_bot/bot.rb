@@ -3,7 +3,7 @@ module VkLongpollBot
   # Main class, which contains all the methods of bot.
   class Bot
   
-    # Every bot stores id of group it operates.
+    # Every bot stores id of group it operates and hash of event listeners.
     attr_reader :id, :event_listeners
   
     # Initialize bot. This method don't run longpoll.
@@ -26,23 +26,46 @@ module VkLongpollBot
       
       # TODO
     end
+
+    # =========================================================================
+    # SOME API METHODS
+    # =========================================================================
     
     # Call for api method with given parameters.
     def api(method_name, parameters = {})
       Request.api(method_name, parameters, @access_token, @api_version)
     end
     
-    # Messaging
-    
     # Send message to <tt>target</tt> with provided <tt>content</tt>.
     def send_message(target, content)
       target_id = target.to_i
-      api("messages.send", user_id: target_id, message: content, random_id: Utility.random_id(target_id))
+      random_id = Utility.random_id(target_id)
+      api("messages.send", user_id: target_id, message: content, random_id: random_id)
+    end
+
+    # Enable group online status
+    def enable_online(gid = @id)
+      begin
+        api("groups.enableOnline", group_id: gid)
+      rescue
+        # Online is already enabled
+      end
+    end
+
+    # Disable group online status
+    def disable_online(gid = @id)
+      begin
+        api("groups.disableOnline", group_id: gid)
+      rescue
+        # Online is already disabled
+      end
     end
     
     # TODO: Which methods are also addable here?
     
-    # Events
+    # =========================================================================
+    # EVENTS
+    # =========================================================================
     
     # Add event listener.
     # 
@@ -63,7 +86,9 @@ module VkLongpollBot
       @on_finish << block
     end
     
-    # Running bot
+    # =========================================================================
+    # RUNNING AND STOPPING BOT
+    # =========================================================================
     
     # Start bot. This methods freeze current thread until <tt>stop</tt> called.
     def run
@@ -80,7 +105,13 @@ module VkLongpollBot
       @finish_flag = true
     end
     
+    # =========================================================================
     private
+    # =========================================================================
+
+    # =========================================================================
+    # LONGPOLL
+    # =========================================================================
     
     # Request longpoll data.
     def init_longpoll
@@ -119,13 +150,17 @@ module VkLongpollBot
         end
       end
     end
+
+    # =========================================================================
+    # EVENTS
+    # =========================================================================
     
     # Handle update from longpoll.
     def update_handler(update)
       event = Events::Event.new(update["type"], update["object"], update["group_id"], self)
       @event_listeners[event.subtype].each do |listener|
         # NOTE: If we had any attributes, we would check whether matching here.
-        listener.call(event)
+        Thread.new(event) { |e| listener.call(e) }
       end
     end
     

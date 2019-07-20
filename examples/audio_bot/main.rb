@@ -11,7 +11,7 @@ bot.on_finish { puts "Finishing bot." }
 bot.on(subtype: "message_new") do |event|
   next unless event["attachments"] && event["body"].chomp == "id"
   reply = []
-  event[:attachments].each do |att|
+  event["attachments"].each do |att|
     if att["type"] == "audio"
       audio = VkMusic::Audio.new(
         artist: att["audio"]["artist"],
@@ -27,12 +27,12 @@ bot.on(subtype: "message_new") do |event|
     end
   end
   
-  bot.send_message(event[:user_id], reply.join("\n")) unless reply.empty?
+  bot.send_message(event["user_id"], reply.join("\n")) unless reply.empty?
 end
 
 bot.on(subtype: "message_new") do |event|
   if event["body"].chomp == "stop"
-    bot.send_message(event[:user_id], "Shutting down")
+    bot.send_message(event["user_id"], "Shutting down")
     bot.stop
   end
 end

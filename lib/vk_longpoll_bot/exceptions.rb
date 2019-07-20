@@ -61,16 +61,23 @@ module VkLongpollBot
     # API error. Must have some code and description.
     class APIError < ResponseError
 
-      attr_reader :code, :error
+      attr_reader :error
       
       def initialize(error)
         @error = error["error"]
-        @code = @error["error_code"]
-        super(@error["error_msg"])
+        super("#{code}: #{included_message}")
+      end
+
+      def code
+        @error["error_code"]
+      end
+
+      def included_message
+        @error["error_msg"]
       end
       
       def description
-        CODES[@code]
+        CODES[code]
       end
     
     end
