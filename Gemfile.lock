@@ -1,0 +1,25 @@
+PATH
+  remote: .
+  specs:
+    vk_longpoll_bot (0.1.0)
+      json (~> 2.2.0)
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    json (2.2.0)
+    minitest (5.12.0)
+    rake (10.5.0)
+
+PLATFORMS
+  x64-mingw32
+
+DEPENDENCIES
+  bundler (~> 2.0)
+  json (~> 2.2)
+  minitest (~> 5.0)
+  rake (~> 10.0)
+  vk_longpoll_bot!
+
+BUNDLED WITH
+   2.0.2

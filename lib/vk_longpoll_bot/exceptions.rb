@@ -1,8 +1,10 @@
 module VkLongpollBot
 
+  ##
   # Custom exceptions.
   module Exceptions
   
+    ##
     # All of the error codes descriptions. Source: https://vk.com/dev/errors
     CODES = {
       1   => "Произошла неизвестная ошибка.",
@@ -54,35 +56,48 @@ module VkLongpollBot
       940 => "Слишком много постов в сообщении."
     }
     
+    ##
     # Something wrong with response from vk.com.
     class ResponseError < RuntimeError
     end
     
+    ##
     # API error. Must have some code and description.
     class APIError < ResponseError
 
       attr_reader :error
       
+      ##
+      # Create new instance.
+      #
+      # @param error [Hash] response hash which contains "error" key.
       def initialize(error)
         @error = error["error"]
         super("#{code}: #{included_message}")
       end
 
+      ##
+      # @return [Integer]
       def code
         @error["error_code"]
       end
 
+      ##
+      # @return [String] attached error description.
       def included_message
         @error["error_msg"]
       end
       
+      ##
+      # @return [String] error description from API documentation.
       def description
         CODES[code]
       end
     
     end
     
-    # Something wrong in longpoll response.
+    ##
+    # Something wrong with longpoll response.
     class LongpollError < ResponseError
     end
   

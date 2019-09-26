@@ -1,6 +1,8 @@
-require "vk_music"
+$LOAD_PATH.unshift File.expand_path("../../lib", __dir__)
 
-require_relative "../../lib/vk_longpoll_bot"
+require "vk_music" # See https://rubygems.org/gems/vk_music
+
+require "vk_longpoll_bot"
 include VkLongpollBot
 
 bot = Bot.new(ARGV[0], ARGV[1])

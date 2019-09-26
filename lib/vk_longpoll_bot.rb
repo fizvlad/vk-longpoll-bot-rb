@@ -1,6 +1,11 @@
-require_relative "vk_longpoll_bot/utility.rb"
-require_relative "vk_longpoll_bot/constants.rb"
-require_relative "vk_longpoll_bot/exceptions.rb"
-require_relative "vk_longpoll_bot/request.rb"
-require_relative "vk_longpoll_bot/bot.rb"
-require_relative "vk_longpoll_bot/events.rb"
+require "vk_longpoll_bot/utility"
+require "vk_longpoll_bot/constants"
+require "vk_longpoll_bot/exceptions"
+require "vk_longpoll_bot/request"
+require "vk_longpoll_bot/bot"
+require "vk_longpoll_bot/events"
+require "vk_longpoll_bot/version"
+
+##
+# Main module.
+module VkLongpollBot; end

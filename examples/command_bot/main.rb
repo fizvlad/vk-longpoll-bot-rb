@@ -1,4 +1,6 @@
-require_relative "../../lib/vk_longpoll_bot"
+$LOAD_PATH.unshift File.expand_path("../../lib", __dir__)
+
+require "vk_longpoll_bot"
 include VkLongpollBot
 
 PREFIX = ">"
