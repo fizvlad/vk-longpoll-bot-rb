@@ -9,16 +9,17 @@ GEM
   specs:
     json (2.2.0)
     minitest (5.12.0)
-    rake (10.5.0)
+    rake (13.0.1)
 
 PLATFORMS
+  ruby
   x64-mingw32
 
 DEPENDENCIES
   bundler (~> 2.0)
   json (~> 2.2)
   minitest (~> 5.0)
-  rake (~> 10.0)
+  rake (~> 13.0)
   vk_longpoll_bot!
 
 BUNDLED WITH
