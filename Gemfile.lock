@@ -2,12 +2,12 @@ PATH
   remote: .
   specs:
     vk_longpoll_bot (0.1.0)
-      json (~> 2.2.0)
+      json (>= 2.2, < 2.4)
 
 GEM
   remote: https://rubygems.org/
   specs:
-    json (2.2.0)
+    json (2.3.1)
     minitest (5.12.0)
     rake (13.0.1)
 
@@ -17,7 +17,7 @@ PLATFORMS
 
 DEPENDENCIES
   bundler (~> 2.0)
-  json (~> 2.2)
+  json (~> 2.3)
   minitest (~> 5.0)
   rake (~> 13.0)
   vk_longpoll_bot!
